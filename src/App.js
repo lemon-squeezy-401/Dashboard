@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Sidebar from './components/sidebar/Sidebar';
 import Topbar from './components/topbar/Topbar';
 import './App.css';
@@ -9,7 +10,13 @@ import NewUser from './pages/newUser/NewUser';
 import ProductList from './pages/productList/ProductList';
 import Product from './pages/product/Product';
 import NewProduct from './pages/newProduct/NewProduct';
+import ServiceList from './pages/serviceList/ServiceList';
+// import Service from './pages/service/Service';
+// import NewService from './pages/newService/NewService';
 function Dashboard(props) {
+  const UserId = window.location.search.split('=')[1];
+  console.log(UserId);
+
   return (
     <>
       {/* // <Router> */}
@@ -21,9 +28,11 @@ function Dashboard(props) {
             <Home />
           </Route>
           <Route path="/users">
+            {/* <Route path={`/?${UserId}/users`}> */}
             <UserList />
           </Route>
-          <Route path="/user/:userId">
+          <Route path={`/user/:userId`}>
+            {/* <Route path={`/?${UserId}/user/:userId`}> */}
             <User />
           </Route>
           <Route path="/newUser">
@@ -38,6 +47,15 @@ function Dashboard(props) {
           <Route path="/newproduct">
             <NewProduct />
           </Route>
+          <Route path="/services">
+            <ServiceList />
+          </Route>
+          {/* <Route path="/service/:serviceId">
+            <Service />
+          </Route>
+          <Route path="/newservice">
+            <NewService />
+          </Route> */}
         </Switch>
       </div>
       {/* // </Router> */}

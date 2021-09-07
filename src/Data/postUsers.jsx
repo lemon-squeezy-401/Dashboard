@@ -8,6 +8,10 @@ function CreatAccountProvider(props) {
   const API = 'https://sab3at.herokuapp.com';
 
   const addUser = async (event) => {
+    const UserId =window.location.search.split('=')[1];
+  console.log(UserId);
+
+
     event.preventDefault();
     const data = {
       firstName: event.target.name.value,
@@ -16,16 +20,18 @@ function CreatAccountProvider(props) {
       password: event.target.password.value,
       role: event.target.role.value,
     };
-    const response = await axios.post(
-      `${API}/controlpanel/6133992373f750001630cf4e`,
-      data
-    );
-    console.log('user list from postUsers component', response);
+    // const response = await axios.post(
+    //   `${API}/controlpanel/${UserId}`,
+    //   data
+    // );
+    const response = await axios.get(`${API}/controlpanel/6133992373f750001630cf4e`);
+
+    // console.log('user list from postUsers component', response);
     setNewUser(response);
   };
 
   return (
-    <CreatAccountContext.Provider value={{ addUser, newUser }}>
+    <CreatAccountContext.Provider value={{  newUser }}>
       {props.children}
     </CreatAccountContext.Provider>
   );

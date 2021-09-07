@@ -1,53 +1,107 @@
-import "./userList.css";
-import { DataGrid } from "@material-ui/data-grid";
-import { DeleteOutline } from "@material-ui/icons";
-import { userRows } from "../../dummyData";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import React, { useContext, useEffect } from 'react';
+import axios from 'axios';
 
+import './userList.css';
+import { DataGrid } from '@material-ui/data-grid';
+import { DeleteOutline } from '@material-ui/icons';
+import { userRows } from '../../dummyData';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+//-------------------adminContext---------------//
+import { GetUsersContext } from '../../Data/getUsers';
 export default function UserList() {
-  const [data, setData] = useState(userRows);
+  const { data } = useContext(GetUsersContext);
 
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
-  };
+  console.log('data from user list component', data);
+
+  const [Data, setData] = useState(data);
+
   
+  useEffect(() => {
+    setData(data);
+  }, [data]);
+
+
+  console.log('data state from user list component ===>', Data);
+  //------------------------------Delete--------------------------------------------//
+  const API = 'https://sab3at.herokuapp.com';
+
+  const handleDelete = async (id) => {
+    const userID = {
+      userId: id,
+    };
+    let response = await axios.delete(
+      `${API}/controlpanel/6133992373f750001630cf4e`,
+      userID
+    );
+    // response.filter((user) => user._id !== id);
+    const newUsers = Data.filter((item) => item.id !== id);
+    console.log(' ===>', newUsers);
+    setData(newUsers);
+  };
+
+  // const handleDelete = (id) => {
+  //   setData(Data.filter((item) => item.id !== id));
+  // };
+
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: 'id', headerName: 'ID', width: 200 },
     {
-      field: "user",
-      headerName: "User",
+      field: 'user',
+      headerName: 'User',
       width: 200,
       renderCell: (params) => {
         return (
           <div className="userListUser">
-            <img className="userListImg" src={params.row.avatar} alt="" />
-            {params.row.username}
+            {/* {console.log('params log from userlist also', params)} */}
+            {/* <img className="userListImg" src={params.row.avatar} alt="" /> */}
+            {params.row.firstName}
           </div>
         );
       },
     },
-    { field: "email", headerName: "Email", width: 200 },
+    { field: 'email', headerName: 'Email', width: 200 },
+    // {
+    //   field: 'status',
+    //   headerName: 'Status',
+    //   width: 120,
+    // },
     {
-      field: "status",
-      headerName: "Status",
-      width: 120,
-    },
-    {
-      field: "transaction",
-      headerName: "Transaction Volume",
+      field: 'transaction',
+      headerName: 'Role',
       width: 160,
+      renderCell: (params) => {
+        return <div className="userListUser">{params.row.role}</div>;
+      },
     },
     {
-      field: "action",
-      headerName: "Action",
+      field: 'action',
+      headerName: 'Edit',
       width: 150,
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/user/" + params.row.id}>
+            <Link to={'/user/' + params.row.id}>
               <button className="userListEdit">Edit</button>
             </Link>
+            {/* <DeleteOutline
+              className="userListDelete"
+              onClick={() => handleDelete(params.row.id)}
+            /> */}
+          </>
+        );
+      },
+    },
+    {
+      field: 'Delete',
+      headerName: 'Delete',
+      width: 150,
+      renderCell: (params) => {
+        return (
+          <>
+            {/* <Link to={'/user/' + params.row.id}>
+              <button className="userListEdit">Edit</button>
+            </Link> */}
             <DeleteOutline
               className="userListDelete"
               onClick={() => handleDelete(params.row.id)}
@@ -57,16 +111,21 @@ export default function UserList() {
       },
     },
   ];
-
-  return (
-    <div className="userList">
+  const Test = () => {
+    const x = data;
+    return (
       <DataGrid
-        rows={data}
+        rows={x}
         disableSelectionOnClick
         columns={columns}
         pageSize={8}
         checkboxSelection
       />
+    );
+  };
+  return (
+    <div className="userList">
+      <Test />
     </div>
   );
 }
