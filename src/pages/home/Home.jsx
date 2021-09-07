@@ -13,11 +13,13 @@ import { GetUsersContext } from '../../Data/getUsers';
 //---------------------------------------------//
 
 export default function Home(props) {
+  const UserId =window.location.search.split('=')[1];
+  console.log(UserId);
   //-------------------adminContext---------------//
-  const { data, getUsers } = useContext(GetUsersContext);
-  useEffect(async () => {
-    getUsers();
-  });
+  const { data } = useContext(GetUsersContext);
+  // useEffect(async () => {
+  //   getUsers();
+  // });
   //-----------------------------------------------------//
   // const [data, setData] = useState([]);
   // const API = 'https://sab3at.herokuapp.com';
@@ -31,15 +33,27 @@ export default function Home(props) {
   // });
 
   //---------------------------------------------//
+
+
+  useEffect(() => {
+    const SearchPage = ({ match, location }) => {
+      return (
+        <p>
+          <strong>Location Props: </strong>
+          {JSON.stringify(location, null, 2)}
+        </p>
+      );
+    };
+  }, []);
   return (
     <div className="home">
       <FeaturedInfo />
-      <Chart
+      {/* <Chart
         data={userData}
         title="User Analytics"
         grid
         dataKey="Active User"
-      />
+      /> */}
       <div className="homeWidgets">
         <WidgetSm />
         <WidgetLg />
