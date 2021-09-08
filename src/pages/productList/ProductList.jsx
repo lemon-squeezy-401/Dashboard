@@ -11,22 +11,27 @@ import { GetUsersContext } from '../../Data/getUsers';
 
 export default function ProductList() {
   const { data } = useContext(GetUsersContext);
-  const [Data, setData] = useState(data);
+  const [Data, setData] = useState([]);
   let arr = [];
 
-  useEffect(() => {
-
-    data.forEach((user) => {
-      user.products.forEach((product) => {
-        console.log(product);
-        arr.push(product);
-      });
+  data.forEach((user) => {
+    user.products.forEach((product) => {
+      // console.log(product);
+      arr.push(product);
     });
+  });
+  //-----------create id --------------//
+  let newId = Math.random();
+  arr.forEach((item) => {
+    item['id'] = newId;
+  });
+  //------------------------------//
+  useEffect(() => {
     setData(arr);
+
     console.log('here', arr);
     console.log('theeeeere', Data);
   }, [data]);
-
 
   //   /--------------------/
   // console.log('xxxx',Data)
@@ -69,6 +74,8 @@ export default function ProductList() {
       renderCell: (params) => {
         return (
           <div className="productListItem">
+            {/* {console.log('params log from userlist also', params)} */}
+
             <img className="productListImg" src={params.row.img} alt="" />
             {params.row.title}
           </div>
@@ -90,7 +97,7 @@ export default function ProductList() {
       },
     },
     {
-      field: 'action',
+      field: 'Edit',
       headerName: 'Edit',
       width: 150,
       renderCell: (params) => {

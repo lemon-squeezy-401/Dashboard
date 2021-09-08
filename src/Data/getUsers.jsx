@@ -16,7 +16,7 @@ function GetUsersProvider(props) {
    
 
     setData(response.data);
-    console.log('arr from all users', response.data);
+    // console.log('arr from all users', response.data);
   };
   useEffect(() => {
     getUsers();
