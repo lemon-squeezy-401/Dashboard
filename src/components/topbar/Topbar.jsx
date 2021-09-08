@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import './topbar.css';
 import { NotificationsNone, Language, Settings } from '@material-ui/icons';
+import { Link } from 'react-router-dom';
 //-------------------adminContext---------------//
 // import { GetUsersContext } from '../../Data/getUsers';
 //---------------------------------------------//
@@ -12,7 +13,12 @@ export default function Topbar() {
     <div className="topbar">
       <div className="topbarWrapper">
         <div className="topLeft"  >
+          <Link  to={{
+                    pathname: '/website',
+                   
+                  }}>
           <span className="logo">Dashboard</span>
+          </Link>
         </div>
         <div className="topRight">
           <div className="topbarIconContainer">

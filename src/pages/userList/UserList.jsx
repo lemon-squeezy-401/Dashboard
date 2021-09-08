@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
+import superagent from 'superagent';
 
 import './userList.css';
 import { DataGrid } from '@material-ui/data-grid';
@@ -12,33 +13,56 @@ import { GetUsersContext } from '../../Data/getUsers';
 export default function UserList() {
   const { data } = useContext(GetUsersContext);
 
-  console.log('data from user list component', data);
+  // console.log('data from context in user list component', data);
 
   const [Data, setData] = useState(data);
+  const [activeId, setActiveId] = useState('');
 
-  
   useEffect(() => {
     setData(data);
   }, [data]);
+  // useEffect(() => {
+  //   function refreshPage() {
+  //     window.location.reload();
+  //   }
+  // }, [Data]);
 
-
-  console.log('data state from user list component ===>', Data);
+  console.log('Data state from user list component ===>', Data);
   //------------------------------Delete--------------------------------------------//
   const API = 'https://sab3at.herokuapp.com';
 
   const handleDelete = async (id) => {
-    const userID = {
-      userId: id,
-    };
-    let response = await axios.delete(
-      `${API}/controlpanel/6133992373f750001630cf4e`,
-      userID
-    );
-    // response.filter((user) => user._id !== id);
-    const newUsers = Data.filter((item) => item.id !== id);
-    console.log(' ===>', newUsers);
-    setData(newUsers);
+    try {
+      const userID = {
+        userId: id,
+      };
+
+      let response = await superagent.delete(
+        `${API}/controlpanel/6133992373f750001630cf4e`,
+        userID
+      );
+      let newData = Data.filter((item) => item.id !== id);
+      console.log('new data after delete =D', newData);
+      setData(newData);
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  // const handleDelete = async (id) => {
+  //   const userID = {
+  //     userId: id,
+  //   };
+
+  //   let response = await axios.delete(
+  //     `${API}/controlpanel/6133992373f750001630cf4e`,
+  //     userID
+  //   );
+
+  //   const newUsers = data.filter((item) => item.id !== id);
+  //   console.log(' DELETEDxxxxxxxxx', newUsers);
+  //   setData(newUsers);
+  // };
 
   // const handleDelete = (id) => {
   //   setData(Data.filter((item) => item.id !== id));
@@ -81,8 +105,24 @@ export default function UserList() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={'/user/' + params.row.id}>
-              <button className="userListEdit">Edit</button>
+            <Link
+              to={{
+                pathname: `/user/ ${params.row.id}`,
+                state:{
+                  firstName : params.row.firstName,
+                email: params.row.email,
+                role: params.row.role,
+                
+
+                },
+              }}
+            >
+              <button
+                className="userListEdit"
+                onClick={(id) => setActiveId(params.row.id)}
+              >
+                Edit
+              </button>
             </Link>
             {/* <DeleteOutline
               className="userListDelete"
@@ -126,6 +166,13 @@ export default function UserList() {
   return (
     <div className="userList">
       <Test />
+      {/* <DataGrid
+        rows={Data}
+        disableSelectionOnClick
+        columns={columns}
+        pageSize={8}
+        checkboxSelection
+      /> */}
     </div>
   );
 }

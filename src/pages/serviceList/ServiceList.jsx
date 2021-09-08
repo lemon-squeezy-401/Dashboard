@@ -49,7 +49,7 @@ const handleDelete = async (id) => {
   // };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "id", headerName: "ID", width: 120 },
     {
       field: "service",
       headerName: "service",
