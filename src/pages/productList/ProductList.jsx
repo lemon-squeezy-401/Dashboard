@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 
 import './productList.css';
 import { DataGrid } from '@material-ui/data-grid';
 import { DeleteOutline } from '@material-ui/icons';
-import { productRows } from '../../dummyData';
+// import { productRows } from '../../dummyData';
 import { Link } from 'react-router-dom';
 //-------------------adminContext---------------//
 import { GetUsersContext } from '../../Data/getUsers';
@@ -29,8 +29,9 @@ export default function ProductList() {
   useEffect(() => {
     setData(arr);
 
-    console.log('here', arr);
-    console.log('theeeeere', Data);
+    // console.log('here', arr);
+    // console.log('theeeeere', Data);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   //   /--------------------/
@@ -46,7 +47,7 @@ export default function ProductList() {
   // }, [Data]);
 
   //------------------------------Delete--------------------------------------------//
-  const API = 'https://sab3at.herokuapp.com';
+  // const API = 'https://sab3at.herokuapp.com';
 
   // const handleDelete = async (id) => {
 

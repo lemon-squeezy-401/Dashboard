@@ -1,22 +1,22 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React from 'react';
 
-import Chart from '../../components/chart/Chart';
+// import Chart from '../../components/chart/Chart';
 import FeaturedInfo from '../../components/featuredInfo/FeaturedInfo';
 import './home.css';
-import { userData } from '../../dummyData';
+// import { userData } from '../../dummyData';
 import WidgetSm from '../../components/widgetSm/WidgetSm';
 import WidgetLg from '../../components/widgetLg/WidgetLg';
-import axios from 'axios';
+// import axios from 'axios';
 
 //-------------------adminContext---------------//
-import { GetUsersContext } from '../../Data/getUsers';
+// import { GetUsersContext } from '../../Data/getUsers';
 //---------------------------------------------//
 
 export default function Home(props) {
   const UserId =window.location.search.split('=')[1];
   console.log(UserId);
   //-------------------adminContext---------------//
-  const { data } = useContext(GetUsersContext);
+  // const { data } = useContext(GetUsersContext);
   // useEffect(async () => {
   //   getUsers();
   // });
@@ -35,16 +35,16 @@ export default function Home(props) {
   //---------------------------------------------//
 
 
-  useEffect(() => {
-    const SearchPage = ({ match, location }) => {
-      return (
-        <p>
-          <strong>Location Props: </strong>
-          {JSON.stringify(location, null, 2)}
-        </p>
-      );
-    };
-  }, []);
+  // useEffect(() => {
+  //   const SearchPage = ({ match, location }) => {
+  //     return (
+  //       <p>
+  //         <strong>Location Props: </strong>
+  //         {JSON.stringify(location, null, 2)}
+  //       </p>
+  //     );
+  //   };
+  // }, []);
   return (
     <div className="home">
       <FeaturedInfo />

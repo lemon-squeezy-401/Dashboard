@@ -5,7 +5,7 @@ import superagent from 'superagent';
 import './userList.css';
 import { DataGrid } from '@material-ui/data-grid';
 import { DeleteOutline } from '@material-ui/icons';
-import { userRows } from '../../dummyData';
+// import { userRows } from '../../dummyData';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 //-------------------adminContext---------------//
@@ -37,7 +37,7 @@ export default function UserList() {
         userId: id,
       };
 
-      let response = await superagent.delete(
+      await superagent.delete(
         `${API}/controlpanel/6133992373f750001630cf4e`,
         userID
       );
@@ -48,7 +48,7 @@ export default function UserList() {
       console.error(error);
     }
   };
-
+  console.log(activeId);
   // const handleDelete = async (id) => {
   //   const userID = {
   //     userId: id,
@@ -108,12 +108,10 @@ export default function UserList() {
             <Link
               to={{
                 pathname: `/user/ ${params.row.id}`,
-                state:{
-                  firstName : params.row.firstName,
-                email: params.row.email,
-                role: params.row.role,
-                
-
+                state: {
+                  firstName: params.row.firstName,
+                  email: params.row.email,
+                  role: params.row.role,
                 },
               }}
             >

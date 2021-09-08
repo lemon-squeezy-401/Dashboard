@@ -1,5 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import axios from 'axios';
+// import { Link } from 'react-router-dom';
 
 import './newUser.css';
 
@@ -106,9 +107,12 @@ export default function NewUser() {
             <option value="no">No</option>
           </select>
         </div> */}
+     
+        {/* <Link to="/users"> */}
         <button type="submit" className="newUserButton">
           Create
         </button>
+        {/* </Link> */}
       </form>
     </div>
   );
