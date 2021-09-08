@@ -51,12 +51,12 @@ function Dashboard(props) {
             <ServiceList />
           </Route>
           <Route
-                  path="/website"
-                  component={() => {
-                    window.location.href = `http://localhost:3000`; //token should pass as param and (usequiry)* or useparams
-                    return null;
-                  }}
-                />
+            path="/website"
+            component={() => {
+              window.location.href = `http://localhost:3000`;
+              return null;
+            }}
+          />
           {/* <Route path="/service/:serviceId">
             <Service />
           </Route>
