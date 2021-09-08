@@ -53,7 +53,7 @@ function Dashboard(props) {
           <Route
             path="/website"
             component={() => {
-              window.location.href = `http://localhost:3000`;
+              window.location.href = `https://sab3at.netlify.app/`;
               return null;
             }}
           />
