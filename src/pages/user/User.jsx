@@ -1,15 +1,15 @@
 import React, { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
-import superagent from 'superagent';
+// import superagent from 'superagent';
 
 import { useHistory, Link } from 'react-router-dom';
 
 import {
-  CalendarToday,
+  // CalendarToday,
   LocationSearching,
   MailOutline,
   PermIdentity,
-  PhoneAndroid,
+  // PhoneAndroid,
   Publish,
 } from '@material-ui/icons';
 // import { Link } from 'react-router-dom';
@@ -33,7 +33,7 @@ export default function User() {
   const [firstName, setFirstName] = useState('');
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('');
-  const [password, setPassword] = useState('');
+  // const [password, setPassword] = useState('');
 
   console.log('data befor updating', Data);
 
@@ -56,7 +56,7 @@ export default function User() {
   // const handlePassword = (event) => {
   //   setPassword(event.target.value);
   // };
-  const API = 'https://sab3at.herokuapp.com';
+  // const API = 'https://sab3at.herokuapp.com';
 
   const handleUpdate = async (e) => {
     e.preventDefault();

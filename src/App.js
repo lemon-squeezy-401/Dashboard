@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React from 'react';
 import Sidebar from './components/sidebar/Sidebar';
 import Topbar from './components/topbar/Topbar';
 import './App.css';
