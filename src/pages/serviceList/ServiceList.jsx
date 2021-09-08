@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
 import './serviceList.css';
@@ -14,16 +14,26 @@ export default function ServiceList() {
 
   let arr = [];
   data.forEach((user) => user.services.forEach((service) => arr.push(service)));
-  const [Data, setData] = useState(arr);
+  const [Data, setData] = useState(data);
+  // const [state, setState] = useState(data)
 
   console.log('arr logged from services list', arr);
   console.log('Data state logged from services list', Data);
 
-  // useEffect(() => {
-  //   function refreshPage() {
-  //     window.location.reload();
-  //   }
-  // }, [Data]);
+   //-----------create id --------------//
+   let newId = Math.random();
+   arr.forEach((item) => {
+     item['id'] = newId;
+   });
+   //------------------------------//
+   useEffect(() => {
+    setData(arr);
+    
+
+    console.log('here ++++++++', arr);
+    // console.log('here &&&&&', state);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   //------------------------------Delete--------------------------------------------//
   const API = 'https://sab3at.herokuapp.com';
@@ -41,7 +51,7 @@ export default function ServiceList() {
   // };
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 120 },
+    { field: '_id', headerName: 'ID', width: 120 },
     {
       field: 'service',
       headerName: 'service',
@@ -49,18 +59,18 @@ export default function ServiceList() {
       renderCell: (params) => {
         return (
           <div className="serviceListItem">
-            <img className="serviceListImg" src={params.row.img} alt="" />
+            <img className="serviceListImg" src={params.row.image} alt="" />
             {params.row.title}
           </div>
         );
       },
     },
-    { field: 'stock', headerName: 'Stock', width: 200 },
-    {
-      field: 'status',
-      headerName: 'Status',
-      width: 120,
-    },
+    // { field: 'stock', headerName: 'Stock', width: 200 },
+    // {
+    //   field: 'status',
+    //   headerName: 'Status',
+    //   width: 120,
+    // },
     {
       field: 'price',
       headerName: 'Price',
@@ -108,7 +118,7 @@ export default function ServiceList() {
   ];
 
   const Test = () => {
-    const x = data;
+    const x = Data;
     return (
       <DataGrid
         rows={x}

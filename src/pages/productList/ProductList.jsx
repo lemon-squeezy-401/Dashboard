@@ -11,9 +11,9 @@ import { GetUsersContext } from '../../Data/getUsers';
 
 export default function ProductList() {
   const { data } = useContext(GetUsersContext);
-  const [Data, setData] = useState([]);
-  let arr = [];
+  const [Data, setData] = useState(data);
 
+  let arr = [];
   data.forEach((user) => {
     user.products.forEach((product) => {
       // console.log(product);
@@ -27,13 +27,14 @@ export default function ProductList() {
   });
   //------------------------------//
   useEffect(() => {
+    
     setData(arr);
 
-    // console.log('here', arr);
-    // console.log('theeeeere', Data);
+    console.log('here', arr);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
-
+  
+  console.log('theeeeere', Data);
   //   /--------------------/
   // console.log('xxxx',Data)
 
@@ -67,7 +68,7 @@ export default function ProductList() {
   // };
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
+    { field: '_id', headerName: 'ID', width: 90 },
     {
       field: 'product',
       headerName: 'Product',
@@ -75,20 +76,20 @@ export default function ProductList() {
       renderCell: (params) => {
         return (
           <div className="productListItem">
-            {/* {console.log('params log from userlist also', params)} */}
+            {console.log('params log from userlist also', params)}
 
-            <img className="productListImg" src={params.row.img} alt="" />
+            <img className="productListImg" src={params.row.image} alt="" />
             {params.row.title}
           </div>
         );
       },
     },
-    { field: 'stock', headerName: 'Stock', width: 200 },
-    {
-      field: 'status',
-      headerName: 'Status',
-      width: 120,
-    },
+    // { field: 'stock', headerName: 'Stock', width: 200 },
+    // {
+    //   field: 'status',
+    //   headerName: 'Status',
+    //   width: 120,
+    // },
     {
       field: 'price',
       headerName: 'Price',
@@ -135,9 +136,10 @@ export default function ProductList() {
     },
   ];
   const Test = () => {
-    const x = Data;
+    const x = arr.map(item=>item);
     return (
       <DataGrid
+     
         rows={x}
         disableSelectionOnClick
         columns={columns}
